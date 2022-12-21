@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:43:31 by danielro          #+#    #+#             */
-/*   Updated: 2022/12/20 19:38:23 by danielro         ###   ########.fr       */
+/*   Updated: 2022/12/21 21:30:24 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,37 +45,58 @@ int	ft_check_duplicate(const int *stack, int n, int len)
 
 int	main(int argc, char **argv)
 {
-	int		*a_stack;
+	int		*input;
+	t_stack	*stack_a;
+//	t_stack	*stack_b;
+	t_stack	*aux;
 	int		i;
 
 	if (argc == 1)
 		return (0);
-	a_stack = ft_stack_alloc(argc, sizeof(int));
+	input = ft_stack_alloc(argc, sizeof(int));
 	i = 0;
-	while (i < argc -1)
+	while (i < argc - 1)
 	{
 		if(!ft_check_digit(argv[i + 1]))
 		{
 			write(1, "Error", 5);
-			free(a_stack);
+			free(input);
 			return (0);
 		}
-		if (i > 0 && ft_check_duplicate(a_stack, ft_atoi(argv[i + 1]), argc - 2))
+		if (i > 0 && ft_check_duplicate(input, ft_atoi(argv[i + 1]), argc - 2))
 		{
 			write(1, "Error", 5);
-			free(a_stack);
+			free(input);
 			exit(1);
 		}
-		a_stack[i] = ft_atoi(argv[i + 1]);
+		input[i] = ft_atoi(argv[i + 1]);
 		i++;
 	}
+/*
 	i = 0;
 	while (i < argc - 1)
 	{
-		printf("n%d:\t%d\n", i, a_stack[i]);
+		printf("n%d:\t%d\n", i, input[i]);
 		i++;
 	}
-	free(a_stack);
+*/
+	i = 0;
+	stack_a = ft_new_stack(input[i]);
+	i++;
+	while (i < argc - 1)
+	{
+		aux = ft_new_stack(input[i]);
+		ft_stack_add(&stack_a, aux);
+		i++;
+	}
+	free(input);
+	i = 0;
+	while (i < argc - 1)
+	{
+		printf("n%d:\t%d\n", i, stack_a->number);
+		stack_a = stack_a->next;
+		i++;
+	}
 	return (0);
 }
 /*
