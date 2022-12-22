@@ -6,11 +6,13 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:43:31 by danielro          #+#    #+#             */
-/*   Updated: 2022/12/21 21:30:24 by danielro         ###   ########.fr       */
+/*   Updated: 2022/12/22 19:40:21 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	ft_print_stack(t_stack *stack);
 
 char	ft_check_digit(char *str)
 {
@@ -72,14 +74,6 @@ int	main(int argc, char **argv)
 		input[i] = ft_atoi(argv[i + 1]);
 		i++;
 	}
-/*
-	i = 0;
-	while (i < argc - 1)
-	{
-		printf("n%d:\t%d\n", i, input[i]);
-		i++;
-	}
-*/
 	i = 0;
 	stack_a = ft_new_stack(input[i]);
 	i++;
@@ -89,15 +83,29 @@ int	main(int argc, char **argv)
 		ft_stack_add(&stack_a, aux);
 		i++;
 	}
+	ft_print_stack(stack_a);
 	free(input);
+	free(aux);
+//	ft_push_swap(stack_a);
+
+	ft_swap_a(stack_a);
+	ft_print_stack(stack_a);
+	return (0);
+}
+
+void	ft_print_stack(t_stack *stack)
+{
+	int	i;
+
 	i = 0;
-	while (i < argc - 1)
+	printf("--------------------------------\n");
+	while (stack->next != NULL)
 	{
-		printf("n%d:\t%d\n", i, stack_a->number);
-		stack_a = stack_a->next;
+		printf("n%d:\t%d\n", i, stack->number);
+		stack = stack->next;
 		i++;
 	}
-	return (0);
+	printf("n%d:\t%d\n", i, stack->number);
 }
 /*
 	while (i < argc)
