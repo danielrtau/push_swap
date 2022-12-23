@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:43:31 by danielro          #+#    #+#             */
-/*   Updated: 2022/12/22 19:40:21 by danielro         ###   ########.fr       */
+/*   Updated: 2022/12/23 14:24:55 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 {
 	int		*input;
 	t_stack	*stack_a;
-//	t_stack	*stack_b;
+	t_stack	*stack_b;
 	t_stack	*aux;
 	int		i;
 
@@ -76,6 +76,7 @@ int	main(int argc, char **argv)
 	}
 	i = 0;
 	stack_a = ft_new_stack(input[i]);
+	stack_b = NULL;
 	i++;
 	while (i < argc - 1)
 	{
@@ -83,13 +84,14 @@ int	main(int argc, char **argv)
 		ft_stack_add(&stack_a, aux);
 		i++;
 	}
-	ft_print_stack(stack_a);
 	free(input);
-	free(aux);
-//	ft_push_swap(stack_a);
 
-	ft_swap_a(stack_a);
 	ft_print_stack(stack_a);
+	ft_push(stack_a, stack_b, "pb");
+	ft_print_stack(stack_a);
+//	ft_print_stack(stack_b);
+
+	free(aux);
 	return (0);
 }
 

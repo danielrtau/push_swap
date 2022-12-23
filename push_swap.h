@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 11:29:45 by danielro          #+#    #+#             */
-/*   Updated: 2022/12/22 18:45:05 by danielro         ###   ########.fr       */
+/*   Updated: 2022/12/23 13:40:36 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct n_stack
 void	ft_stack_add(t_stack **lst, t_stack *new);
 t_stack	*ft_new_stack(int number);
 t_stack	*ft_stack_last(t_stack *lst);
-void	ft_swap_a(t_stack *stack);
+void	ft_swap(t_stack *stack, char *mv);
+void	ft_push(t_stack *src, t_stack *dst, char *mv);
 
 # endif
