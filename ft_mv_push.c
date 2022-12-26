@@ -12,16 +12,13 @@
 
 #include "push_swap.h"
 
-void	ft_push(t_stack *src, t_stack *dst, char *mv)
+void	ft_push(t_stack **src, t_stack **dst, char *mv)
 {
-	t_stack	*aux;
-
-	aux = src->next;
-	if(!dst)
+	if(!(*dst))
 	{
-		src->next = NULL;
-		dst = src;
-		*src = *aux;
+		*dst = *src;
+		*src = (*src)->next;
+		(*dst)->next = NULL;
 	}
 	write(1, mv, 2);
 	write(1, "\n", 1);

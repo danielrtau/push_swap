@@ -36,6 +36,6 @@ void	ft_stack_add(t_stack **lst, t_stack *new);
 t_stack	*ft_new_stack(int number);
 t_stack	*ft_stack_last(t_stack *lst);
 void	ft_swap(t_stack *stack, char *mv);
-void	ft_push(t_stack *src, t_stack *dst, char *mv);
+void	ft_push(t_stack **src, t_stack **dst, char *mv);
 
 # endif

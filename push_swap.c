@@ -87,9 +87,9 @@ int	main(int argc, char **argv)
 	free(input);
 
 	ft_print_stack(stack_a);
-	ft_push(stack_a, stack_b, "pb");
+	ft_push(&stack_a, &stack_b, "pb");
 	ft_print_stack(stack_a);
-//	ft_print_stack(stack_b);
+	ft_print_stack(stack_b);
 
 	free(aux);
 	return (0);
