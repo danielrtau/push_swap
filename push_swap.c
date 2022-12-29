@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:43:31 by danielro          #+#    #+#             */
-/*   Updated: 2022/12/23 14:24:55 by danielro         ###   ########.fr       */
+/*   Updated: 2022/12/29 19:12:16 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ int	main(int argc, char **argv)
 	free(input);
 
 	ft_print_stack(stack_a);
-	ft_push(&stack_a, &stack_b, "pb");
+	ft_reverse_rotate(&stack_a, "rra");
+	ft_reverse_rotate(&stack_a, "rra");
+	ft_reverse_rotate(&stack_a, "rra");
 	ft_print_stack(stack_a);
 	ft_print_stack(stack_b);
 
@@ -101,13 +103,14 @@ void	ft_print_stack(t_stack *stack)
 
 	i = 0;
 	printf("--------------------------------\n");
-	while (stack->next != NULL)
+	while (stack && stack->next != NULL)
 	{
 		printf("n%d:\t%d\n", i, stack->number);
 		stack = stack->next;
 		i++;
 	}
-	printf("n%d:\t%d\n", i, stack->number);
+	if (stack)
+		printf("n%d:\t%d\n", i, stack->number);
 }
 /*
 	while (i < argc)
