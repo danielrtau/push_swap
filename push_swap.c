@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:43:31 by danielro          #+#    #+#             */
-/*   Updated: 2022/12/29 19:12:16 by danielro         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:16:43 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	ft_check_digit(char *str)
 	i = 0;
 	while (str[i])
 	{
-		while (str[i] == '-' || str[i] == '+')
+		if (str[i] == '-' || str[i] == '+')
 			i++;
 		if (str[i] < '0' || str[i] > '9')
 			return (0);
