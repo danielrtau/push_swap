@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:43:31 by danielro          #+#    #+#             */
-/*   Updated: 2023/01/04 18:15:51 by danielro         ###   ########.fr       */
+/*   Updated: 2023/01/04 20:51:19 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	main(int argc, char **argv)
 	t_stack	*stack_b;
 	t_stack	*aux;
 	int		i;
+	int		min[3];
+	int		rotate;
 
 	if (argc == 1)
 		return (0);
@@ -85,17 +87,50 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	free(input);
+
 //Algorithm
-	if (ft_check_if_solved(&stack_a))
-		finish();
-	if (ft_check_if_swap(&stack_a))
-	{
-		ft_swap(&stack_a,"sa");
-		ft_check_if_solved(&stack_a);
-	}
+	ft_check_if_solved(stack_a, stack_b);
+	ft_check_if_swap(stack_a, stack_b, 1);
+	min[0] = ft_stack_size(stack_a);
+	min[1] = ft_stack_min(stack_a);
+	min[2] = ft_stack_pos(stack_a, min[1]);
 	while (1)
 	{
-		ft_find_min();
+		while(1)
+		{
+			if (min[2] == 1)
+			{
+				ft_push(&stack_a, &stack_b, "pb");
+				ft_check_if_swap(stack_a, stack_b, 1);
+				break;
+			}
+			else
+			{
+				if (min[2] <= min[0] / 2)
+				{
+					rotate = min[2] - 2;
+					while (rotate--)
+					{
+						ft_rotate(&stack_a, "ra");
+						ft_check_if_swap(stack_a, stack_b, 0);
+					}
+				}
+				else
+				{
+					rotate = min[0] - min[2] + 1;
+					while (rotate--)
+					{
+						ft_reverse_rotate(&stack_a, "rra");
+						ft_check_if_swap(stack_a, stack_b, 0);
+					}
+				}
+				ft_check_if_solved(stack_a, stack_b);
+				min[2] = 1;
+			}
+		}
+		min[0] = ft_stack_size(stack_a);
+		min[1] = ft_stack_min(stack_a);
+		min[2] = ft_stack_pos(stack_a, min[1]);
 	}
 	ft_print_stack(stack_a);
 
@@ -119,7 +154,7 @@ void	ft_print_stack(t_stack *stack)
 		printf("n%d:\t%d\n", i, stack->number);
 }
 /*
-   1.	check if solved
+1.	check if solved
 	finish
 		stack b?
 			count stack b
