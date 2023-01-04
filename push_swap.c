@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:43:31 by danielro          #+#    #+#             */
-/*   Updated: 2023/01/03 19:16:43 by danielro         ###   ########.fr       */
+/*   Updated: 2023/01/04 18:15:51 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,19 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	free(input);
-
+//Algorithm
+	if (ft_check_if_solved(&stack_a))
+		finish();
+	if (ft_check_if_swap(&stack_a))
+	{
+		ft_swap(&stack_a,"sa");
+		ft_check_if_solved(&stack_a);
+	}
+	while (1)
+	{
+		ft_find_min();
+	}
 	ft_print_stack(stack_a);
-	ft_reverse_rotate(&stack_a, "rra");
-	ft_reverse_rotate(&stack_a, "rra");
-	ft_reverse_rotate(&stack_a, "rra");
-	ft_print_stack(stack_a);
-	ft_print_stack(stack_b);
 
 	free(aux);
 	return (0);
@@ -113,19 +119,27 @@ void	ft_print_stack(t_stack *stack)
 		printf("n%d:\t%d\n", i, stack->number);
 }
 /*
-	while (i < argc)
-	{
-		if (ft_isnumber(argv[i]) == 0)
-			return (ft_error());
-		ft_lstadd_back(&stack_a, ft_lstnew(ft_atoi(argv[i])));
-		i++;
-	}
-	if (ft_check_doubles(stack_a) == 0)
-		return (ft_error());
-	ft_sort(&stack_a, &stack_b);
-	ft_lstclear(&stack_a);
-	ft_lstclear(&stack_b);
-	return (0);
-
-}
+   1.	check if solved
+	finish
+		stack b?
+			count stack b
+			push a #b
+		solved!
+	return
+2.	swap a?
+		swap
+		1.
+	return
+3.	find min
+4.	min first?
+		push b
+		2.
+		3.
+	relocate min (#/2 - find pos)
+	# times locates min *if ra (-2 because swap) *if rra (+1)
+		ra - rra
+		2. (no check 1.)
+	1.
+	min first
+	4.
 */
