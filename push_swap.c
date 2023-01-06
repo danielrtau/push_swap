@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:43:31 by danielro          #+#    #+#             */
-/*   Updated: 2023/01/04 20:51:19 by danielro         ###   ########.fr       */
+/*   Updated: 2023/01/06 17:48:08 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,8 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	i = 0;
-	stack_a = ft_new_stack(input[i]);
+	stack_a = NULL;
 	stack_b = NULL;
-	i++;
 	while (i < argc - 1)
 	{
 		aux = ft_new_stack(input[i]);
@@ -89,8 +88,17 @@ int	main(int argc, char **argv)
 	free(input);
 
 //Algorithm
-	ft_check_if_solved(stack_a, stack_b);
-	ft_check_if_swap(stack_a, stack_b, 1);
+	if (ft_is_solved(stack_a))
+	{
+		free(aux);
+		free(stack_a);
+		free(stack_b);
+		exit(0);
+	}
+//		ft_finish(aux);
+	ft_check_if_swap(stack_a);
+	if(ft_check_if_solved(stack_a, stack_b))
+		ft_finish(aux);
 	min[0] = ft_stack_size(stack_a);
 	min[1] = ft_stack_min(stack_a);
 	min[2] = ft_stack_pos(stack_a, min[1]);
@@ -101,7 +109,9 @@ int	main(int argc, char **argv)
 			if (min[2] == 1)
 			{
 				ft_push(&stack_a, &stack_b, "pb");
-				ft_check_if_swap(stack_a, stack_b, 1);
+				ft_check_if_swap(stack_a);
+				if(ft_check_if_solved(stack_a, stack_b))
+					ft_finish(aux);
 				break;
 			}
 			else
@@ -112,7 +122,7 @@ int	main(int argc, char **argv)
 					while (rotate--)
 					{
 						ft_rotate(&stack_a, "ra");
-						ft_check_if_swap(stack_a, stack_b, 0);
+						ft_check_if_swap(stack_a);
 					}
 				}
 				else
@@ -121,10 +131,11 @@ int	main(int argc, char **argv)
 					while (rotate--)
 					{
 						ft_reverse_rotate(&stack_a, "rra");
-						ft_check_if_swap(stack_a, stack_b, 0);
+						ft_check_if_swap(stack_a);
 					}
 				}
-				ft_check_if_solved(stack_a, stack_b);
+				if (ft_check_if_solved(stack_a, stack_b))
+					ft_finish(aux);
 				min[2] = 1;
 			}
 		}
@@ -132,10 +143,6 @@ int	main(int argc, char **argv)
 		min[1] = ft_stack_min(stack_a);
 		min[2] = ft_stack_pos(stack_a, min[1]);
 	}
-	ft_print_stack(stack_a);
-
-	free(aux);
-	return (0);
 }
 
 void	ft_print_stack(t_stack *stack)
