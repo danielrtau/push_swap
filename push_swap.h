@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 11:29:45 by danielro          #+#    #+#             */
-/*   Updated: 2023/01/06 17:27:45 by danielro         ###   ########.fr       */
+/*   Updated: 2023/01/10 22:52:26 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,9 @@ void	ft_check_if_swap(t_stack *stack);
 int		ft_stack_pos(t_stack *stack, int min);
 int		ft_stack_min(t_stack *stack);
 void	ft_finish(t_stack *stack);
+int		ft_total_num(char **argv, int argc);
+int		ft_count_num(char *argv);
+int		ft_is_list(char *argv);
+char	*ft_next_num(char *argv);
 
 # endif

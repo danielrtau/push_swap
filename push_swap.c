@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:43:31 by danielro          #+#    #+#             */
-/*   Updated: 2023/01/06 17:48:08 by danielro         ###   ########.fr       */
+/*   Updated: 2023/01/11 12:21:36 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	ft_check_digit(char *str)
 	i = 0;
 	while (str[i])
 	{
+		if (str[i] == 32 && i > 0)
+			i++;
 		if (str[i] == '-' || str[i] == '+')
 			i++;
 		if (str[i] < '0' || str[i] > '9')
@@ -35,7 +37,9 @@ int	ft_check_duplicate(const int *stack, int n, int len)
 	int i;
 
 	i = 0;
-	while (i <= len && n != *stack)
+	if (len == 0)
+		return (0);
+	while (i < len && n != *stack)
 	{
 		stack++;
 		i++;
@@ -54,32 +58,62 @@ int	main(int argc, char **argv)
 	int		i;
 	int		min[3];
 	int		rotate;
+	int		total_numbers;
+	int		n_list;
+	char	*arg_lst;
 
 	if (argc == 1)
 		return (0);
-	input = ft_stack_alloc(argc, sizeof(int));
 	i = 0;
 	while (i < argc - 1)
 	{
 		if(!ft_check_digit(argv[i + 1]))
 		{
-			write(1, "Error", 5);
-			free(input);
+			write(2, "Error", 5);
 			return (0);
 		}
-		if (i > 0 && ft_check_duplicate(input, ft_atoi(argv[i + 1]), argc - 2))
+		i++;
+	}
+	i = 1;
+	total_numbers = ft_total_num(argv, argc);
+	input = ft_stack_alloc(total_numbers, sizeof(int));
+	total_numbers = 0;
+	while (i < argc)
+	{
+		if (ft_is_list(argv[i]))
 		{
-			write(1, "Error", 5);
-			free(input);
-			exit(1);
+			arg_lst = argv[i];
+			n_list = ft_count_num(arg_lst);
+			while (n_list--)
+			{
+				if (ft_check_duplicate(input, ft_atoi(arg_lst), total_numbers))
+				{
+					write(2, "Error", 5);
+					free(input);
+					return (0);
+				}
+				input[total_numbers] = ft_atoi(arg_lst);
+				arg_lst = ft_next_num(arg_lst);
+				total_numbers++;
+			}
 		}
-		input[i] = ft_atoi(argv[i + 1]);
+		else
+		{
+			if (ft_check_duplicate(input, ft_atoi(argv[i]), total_numbers))
+			{
+				write(2, "Error", 5);
+				free(input);
+				return (0);
+			}
+			input[total_numbers] = ft_atoi(argv[i]);
+			total_numbers++;
+		}
 		i++;
 	}
 	i = 0;
 	stack_a = NULL;
 	stack_b = NULL;
-	while (i < argc - 1)
+	while (i < total_numbers)
 	{
 		aux = ft_new_stack(input[i]);
 		ft_stack_add(&stack_a, aux);
@@ -91,8 +125,6 @@ int	main(int argc, char **argv)
 	if (ft_is_solved(stack_a))
 	{
 		free(aux);
-		free(stack_a);
-		free(stack_b);
 		exit(0);
 	}
 //		ft_finish(aux);

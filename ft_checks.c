@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 19:31:16 by danielro          #+#    #+#             */
-/*   Updated: 2023/01/06 17:27:40 by danielro         ###   ########.fr       */
+/*   Updated: 2023/01/11 11:48:41 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_check_if_swap(t_stack *stack)
 
 void	ft_finish(t_stack *stack)
 {
-	free(stack);
+	printf("Solved! %p", stack);
+//	free(stack);
 	exit(0);
 }
 
